@@ -14,7 +14,7 @@ function App() {
   const [currentZone, setCurrentZone] = useState<string>('home');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [systemTime, setSystemTime] = useState<string>('');
-  const [zones, setZones] = useState<Zone[]>([
+  const [zones] = useState<Zone[]>([
     { id: 'bio', name: 'Bio Terminal', icon: <User size={20} />, completed: false, description: 'Personal Information Archive' },
     { id: 'skills', name: 'Skills Matrix', icon: <Code size={20} />, completed: false, description: 'Ability Enhancement Grid' },
     { id: 'experience', name: 'Experience Archive', icon: <Briefcase size={20} />, completed: false, description: 'Mission History Database' },
@@ -24,7 +24,6 @@ function App() {
 
   const [completedZones, setCompletedZones] = useState<Set<string>>(new Set());
 
-  // System time update
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -77,19 +76,80 @@ function App() {
       name: 'E-Commerce Platform',
       tech: ['React', 'Node.js', 'MongoDB'],
       description: 'Full-stack e-commerce solution with payment integration',
-      status: 'Production'
+      status: 'Completed'
     },
     {
       name: 'Task Management App',
-      tech: ['Vue.js', 'Firebase', 'PWA'],
+      tech: ['Laravel', 'MySQL'],
       description: 'Collaborative task management with real-time updates',
-      status: 'Active'
+      status: 'Active',
+      link: 'https://siiteung.kabayan.id/'
     },
     {
       name: 'Data Visualization Dashboard',
       tech: ['D3.js', 'Python', 'FastAPI'],
       description: 'Interactive dashboard for complex data analysis',
       status: 'Completed'
+    },
+    {
+      name: 'MyTalent Indosat',
+      tech: ['Laravel', 'MySQL'],
+      description: 'Human Resource Information System to manage employee data and HR processes within Indosat.',
+      status: 'Completed'
+    },
+    {
+      name: 'MyDevelopment Indosat',
+      tech: ['Laravel', 'MySQL'],
+      description: 'Employee development tracking system supporting training, skills growth, and performance improvements.',
+      status: 'Completed'
+    },
+    {
+      name: 'MyHiring Indosat',
+      tech: ['Laravel', 'MySQL'],
+      description: 'Recruitment and hiring management platform for streamlining Indosat’s talent acquisition process.',
+      status: 'Completed'
+    },
+    {
+      name: 'Dashboard Pelatihan Tenaga Kerja Kemnaker',
+      tech: ['Vue.js', 'Laravel Lumen', 'PostgreSQL'],
+      description: 'Comprehensive dashboard for monitoring and managing workforce training programs by Kemnaker.',
+      status: 'Active',
+      link: 'https://matapvp.kemnaker.go.id/'
+    },
+    {
+      name: 'Dashboard Tenaga Kerja Kemnaker',
+      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
+      description: 'Analytics and monitoring dashboard providing insights into labor market and workforce distribution.',
+      status: 'Active',
+      link: 'https://matatk.kemnaker.go.id/'
+    },
+    {
+      name: 'Dashboard Pemadanan Data Kemnaker',
+      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
+      description: 'Data reconciliation platform ensuring accuracy and consistency across multiple labor-related datasets.',
+      status: 'Active',
+      link: 'https://pemadanandata.kemnaker.go.id/'
+    },
+    {
+      name: 'Sistem Informasi Kearsipan Statis (SIKS) ANRI',
+      tech: ['Vue.js', 'Rancher', 'Keycloak', 'Minio', 'PostgreSQL'],
+      description: 'National archival information system supporting static archive management and secure access.',
+      status: 'Active',
+      link: 'https://siks.arsip.go.id/'
+    },
+    {
+      name: 'Sistem Informasi Keuangan (SIMKEU) Komdigi',
+      tech: ['Laravel', 'MySQL'],
+      description: 'Financial management system for Komdigi, handling budgeting, transactions, and reporting.',
+      status: 'Active',
+      link: 'https://simkeu-e-penyiaran.komdigi.go.id/'
+    },
+    {
+      name: 'Dashboard Ekonomi Kreatif Jawa Barat',
+      tech: ['React', 'Node.js', 'Supabase'],
+      description: 'Interactive dashboard visualizing the creative economy sector performance in West Java.',
+      status: 'Staging',
+      link: 'http://194.233.75.135:3000/'
     }
   ];
 
@@ -228,16 +288,10 @@ function App() {
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse" />
                   <div className="relative w-32 h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-full border-2 border-cyan-400/50 overflow-hidden">
-                    {/* <img
-                      src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
-                      alt="Profile"
-                      className="w-full h-full object-cover"
-                    /> */}
-
                     <img
                       src={profileImg}
                       alt="Profile"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover [object-position:center_15%]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/20 to-transparent" />
                     <div className="absolute bottom-2 right-2">
@@ -286,11 +340,19 @@ function App() {
                   </h3>
                   <div className="bg-slate-800/30 p-4 rounded-lg border border-purple-500/20">
                     <p className="text-cyan-100 leading-relaxed mb-4">
-                      Passionate developer focused on creating innovative digital solutions. 
-                      Specializing in modern web technologies and user experience optimization.
+                      Dedicated developer with strong experience in building scalable web applications using 
+                      modern frameworks like Vue.js, Laravel, and FastAPI. Skilled in architecting solutions 
+                      with Kubernetes, API integrations, and data visualization, while maintaining focus on 
+                      clean code and user experience.
+                    </p>
+                    <p className="text-cyan-100 leading-relaxed mb-4">
+                      Passionate about continuous learning — from experimenting with AI, bots, and 
+                      speech-to-text systems, to exploring emerging tech like FPV drones and IoT. 
                     </p>
                     <p className="text-cyan-100 leading-relaxed">
-                      Always eager to tackle new challenges and learn emerging technologies.
+                      Beyond coding, I value collaboration, creativity, and meaningful connections. 
+                      I believe technology should not only solve problems but also create positive 
+                      impact and inspiring experiences.
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {['Innovation', 'Problem Solving', 'Team Leadership', 'Continuous Learning'].map((trait) => (
@@ -503,9 +565,20 @@ function App() {
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                         <span className="text-green-400 text-sm font-mono">{project.status}</span>
                       </div>
-                      <button className="text-pink-400 hover:text-pink-300 transition-colors">
-                        <ChevronRight size={16} />
-                      </button>
+                      {project.link ? (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-pink-400 hover:text-pink-300 transition-colors"
+                        >
+                          <ChevronRight size={16} />
+                        </a>
+                      ) : (
+                        <span className="text-slate-500 cursor-not-allowed">
+                          <ChevronRight size={16} />
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -573,10 +646,17 @@ function App() {
                       rows={4}
                       className="w-full bg-slate-800/60 border border-blue-500/40 rounded-lg px-4 py-3 text-cyan-100 placeholder-cyan-400/50 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/30 font-mono resize-none transition-all duration-300 hover:border-blue-400/60"
                     />
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-6 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 font-mono shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
+                    {/* <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-6 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 font-mono shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
                       <Zap size={16} />
                       TRANSMIT_MESSAGE
-                    </button>
+                    </button> */}
+                    <a
+                      href={`mailto:fadhilfn04@gmail.com?subject=Hello&body=Isi pesan di sini`}
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-6 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 font-mono shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                    >
+                      <Zap size={16} />
+                      TRANSMIT_MESSAGE
+                    </a>
                   </div>
                 </div>
               </div>
