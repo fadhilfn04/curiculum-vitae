@@ -10,16 +10,39 @@ interface Zone {
   description: string;
 }
 
+interface Skill {
+  name: string;
+  level: number;
+  category: string;
+}
+
+interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  stack?: string[];
+  achievements: string[];
+}
+
+interface Project {
+  name: string;
+  tech: string[];
+  description: string;
+  status: string;
+  link?: string;
+  type?: string;
+}
+
 function App() {
   const [currentZone, setCurrentZone] = useState<string>('home');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [systemTime, setSystemTime] = useState<string>('');
   const [zones] = useState<Zone[]>([
-    { id: 'bio', name: 'Bio Terminal', icon: <User size={20} />, completed: false, description: 'Personal Information Archive' },
-    { id: 'skills', name: 'Skills Matrix', icon: <Code size={20} />, completed: false, description: 'Ability Enhancement Grid' },
-    { id: 'experience', name: 'Experience Archive', icon: <Briefcase size={20} />, completed: false, description: 'Mission History Database' },
-    { id: 'projects', name: 'Projects Lab', icon: <Rocket size={20} />, completed: false, description: 'Innovation Showcase' },
-    { id: 'contact', name: 'Contact Portal', icon: <Mail size={20} />, completed: false, description: 'Communication Interface' }
+    { id: 'bio', name: 'Bio Terminal', icon: <User size={20} />, completed: false, description: 'Profile & Engineering Summary' },
+    { id: 'skills', name: 'Skills Matrix', icon: <Code size={20} />, completed: false, description: 'Core Stack & Proficiency Levels' },
+    { id: 'experience', name: 'Experience Archive', icon: <Briefcase size={20} />, completed: false, description: 'Production Roles & Impact' },
+    { id: 'projects', name: 'Projects Lab', icon: <Rocket size={20} />, completed: false, description: 'Shipped Systems & Platforms' },
+    { id: 'contact', name: 'Contact Portal', icon: <Mail size={20} />, completed: false, description: 'Channels & Direct Message' }
   ]);
 
   const [completedZones, setCompletedZones] = useState<Set<string>>(new Set());
@@ -39,117 +62,157 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const skills = [
-    { name: 'JavaScript', level: 95, category: 'Frontend' },
+  const skills: Skill[] = [
+    { name: 'TypeScript / JavaScript', level: 92, category: 'Frontend' },
     { name: 'React', level: 90, category: 'Frontend' },
-    { name: 'TypeScript', level: 85, category: 'Frontend' },
+    { name: 'Vue.js', level: 88, category: 'Frontend' },
     { name: 'Node.js', level: 88, category: 'Backend' },
-    { name: 'Python', level: 82, category: 'Backend' },
-    { name: 'SQL', level: 75, category: 'Database' },
-    // { name: 'AWS', level: 78, category: 'Cloud' },
-    // { name: 'Docker', level: 80, category: 'DevOps' }
+    { name: 'REST API Design', level: 90, category: 'Backend' },
+    { name: 'PHP (Laravel / Lumen)', level: 85, category: 'Backend' },
+    { name: 'Python (FastAPI)', level: 82, category: 'Backend' },
+    { name: 'MySQL', level: 85, category: 'Database' },
+    { name: 'PostgreSQL', level: 82, category: 'Database' },
+    { name: 'Docker & Containers', level: 80, category: 'DevOps' },
+    { name: 'CI/CD Pipelines', level: 78, category: 'DevOps' },
+    { name: 'Kubernetes (Rancher)', level: 75, category: 'DevOps' },
+    { name: 'MinIO (S3-Compatible Storage)', level: 75, category: 'DevOps' }
   ];
 
-  const experiences = [
+  const coreStack = [
+    'Node.js', 'TypeScript', 'JavaScript', 'React', 'Vue.js', 'REST APIs',
+    'PostgreSQL', 'MySQL', 'Supabase', 'FastAPI', 'Laravel Lumen', 'Docker',
+    'Kubernetes', 'Rancher', 'CI/CD', 'MinIO (S3)', 'Keycloak SSO',
+    'Real-Time Dashboards', 'Data Visualization', 'D3.js'
+  ];
+
+  const experiences: Experience[] = [
     {
       title: 'Senior Full Stack Developer',
       company: 'CV. Kabayan Consulting',
       period: '2023 - Present',
-      achievements: ['Led team of 5 developers', 'Increased app performance by 40%', 'Implemented CI/CD pipeline']
+      stack: ['Node.js', 'React', 'Vue.js', 'PostgreSQL', 'MySQL', 'Docker', 'Kubernetes (Rancher)', 'MinIO (S3)'],
+      achievements: [
+        'Lead a 5-person engineering team delivering end-to-end web platforms — from REST API design to production deployment — for clients including Kemnaker, ANRI, Komdigi, and Indosat',
+        'Architected national-scale systems now running in production, including the Kemnaker workforce dashboards and the ANRI national archival platform (SIKS)',
+        'Increased application performance by 40% through systematic full-stack optimization of APIs, database queries, and frontend delivery',
+        'Implemented CI/CD pipelines to automate builds, testing, and deployments, cutting manual release effort',
+        'Owned production infrastructure concerns: containerized deployments on Rancher-managed Kubernetes, MinIO S3-compatible object storage, and Keycloak SSO integration'
+      ]
     },
     {
       title: 'Frontend Developer',
       company: 'PT. Kabayan Aishwarya Nusantara',
       period: '2022 - 2023',
-      achievements: ['Built responsive web applications', 'Improved user engagement by 25%', 'Mentored junior developers']
+      stack: ['Vue.js', 'React', 'TypeScript', 'Laravel', 'MySQL'],
+      achievements: [
+        'Built responsive, data-intensive web applications and dashboards for enterprise clients, contributing to the Indosat HR platform suite (MyTalent, MyDevelopment, MyHiring)',
+        'Improved user engagement by 25% through UX-driven frontend refinement and page performance tuning',
+        'Mentored junior developers through code reviews and pairing, raising delivery quality across the team'
+      ]
     },
     {
       title: 'Junior Developer',
       company: 'Inovindo Digital Media',
       period: '2020 - 2021',
-      achievements: ['Developed MVP features', 'Collaborated with design team', 'Learned modern frameworks']
+      achievements: [
+        'Shipped MVP features for client web applications in fast, iterative delivery cycles',
+        'Collaborated with the design team to translate UI/UX specifications into responsive, production-ready interfaces',
+        'Built strong foundations in modern JavaScript frameworks, API integration, and agile delivery practices'
+      ]
     }
   ];
 
-  const projects = [
+  const projects: Project[] = [
+    {
+      name: 'Sistem Informasi Kearsipan Statis (SIKS) ANRI',
+      tech: ['Vue.js', 'Rancher (Kubernetes)', 'Keycloak', 'MinIO (S3)', 'PostgreSQL'],
+      description: 'National static-archive platform for Indonesia’s National Archives: Keycloak SSO authentication, MinIO S3-compatible object storage for archival files, and a PostgreSQL data layer — deployed on Rancher-managed Kubernetes.',
+      status: 'Active',
+      type: 'Full-Stack Platform · Government',
+      link: 'https://siks.arsip.go.id/'
+    },
+    {
+      name: 'Dashboard Pemadanan Data Kemnaker',
+      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
+      description: 'Data reconciliation platform that matches and validates records across multiple labor-market datasets to guarantee accuracy and consistency — Vue.js frontend over decoupled FastAPI REST services.',
+      status: 'Active',
+      type: 'Data Platform · Government',
+      link: 'https://pemadanandata.kemnaker.go.id/'
+    },
+    {
+      name: 'Dashboard Tenaga Kerja Kemnaker (MATATK)',
+      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
+      description: 'Labor-market analytics dashboard delivering insights into workforce distribution and labor trends — Vue.js frontend consuming FastAPI REST APIs backed by PostgreSQL.',
+      status: 'Active',
+      type: 'Analytics Platform · Government',
+      link: 'https://matatk.kemnaker.go.id/'
+    },
+    {
+      name: 'Dashboard Pelatihan Tenaga Kerja Kemnaker (MATAPVP)',
+      tech: ['Vue.js', 'Laravel Lumen', 'PostgreSQL'],
+      description: 'Monitoring platform for the Ministry of Manpower’s workforce training programs — Vue.js frontend over Laravel Lumen REST services and PostgreSQL.',
+      status: 'Active',
+      type: 'Monitoring Platform · Government',
+      link: 'https://matapvp.kemnaker.go.id/'
+    },
     {
       name: 'E-Commerce Platform',
       tech: ['React', 'Node.js', 'MongoDB'],
-      description: 'Full-stack e-commerce solution with payment integration',
-      status: 'Completed'
+      description: 'End-to-end commerce product: React storefront backed by Node.js REST APIs and MongoDB, with integrated payment processing from cart to checkout.',
+      status: 'Completed',
+      type: 'Full-Stack Product'
     },
     {
-      name: 'Task Management App',
+      name: 'Dashboard Ekonomi Kreatif Jawa Barat',
+      tech: ['React', 'Node.js', 'Supabase'],
+      description: 'Full-stack dashboard visualizing the creative-economy sector across West Java — React frontend, Node.js services, and Supabase (PostgreSQL) backend.',
+      status: 'Staging',
+      type: 'Full-Stack Product',
+      link: 'http://194.233.75.135:3000/'
+    },
+    {
+      name: 'SiiTeung Task Management',
       tech: ['Laravel', 'MySQL'],
-      description: 'Collaborative task management with real-time updates',
+      description: 'Collaborative task management application with real-time updates, keeping distributed teams in sync — built on Laravel and MySQL.',
       status: 'Active',
+      type: 'Full-Stack Product',
       link: 'https://siiteung.kabayan.id/'
     },
     {
       name: 'Data Visualization Dashboard',
       tech: ['D3.js', 'Python', 'FastAPI'],
-      description: 'Interactive dashboard for complex data analysis',
-      status: 'Completed'
+      description: 'Interactive analytics dashboard for exploring complex datasets — D3.js visualizations powered by FastAPI services.',
+      status: 'Completed',
+      type: 'Data & Analytics'
     },
     {
       name: 'MyTalent Indosat',
       tech: ['Laravel', 'MySQL'],
-      description: 'Human Resource Information System to manage employee data and HR processes within Indosat.',
-      status: 'Completed'
+      description: 'Human Resource Information System managing employee data and core HR processes for Indosat — Laravel + MySQL.',
+      status: 'Completed',
+      type: 'Enterprise System'
     },
     {
       name: 'MyDevelopment Indosat',
       tech: ['Laravel', 'MySQL'],
-      description: 'Employee development tracking system supporting training, skills growth, and performance improvements.',
-      status: 'Completed'
+      description: 'Employee development tracking system supporting training, skills growth, and performance improvement for Indosat — Laravel + MySQL.',
+      status: 'Completed',
+      type: 'Enterprise System'
     },
     {
       name: 'MyHiring Indosat',
       tech: ['Laravel', 'MySQL'],
-      description: 'Recruitment and hiring management platform for streamlining Indosat’s talent acquisition process.',
-      status: 'Completed'
-    },
-    {
-      name: 'Dashboard Pelatihan Tenaga Kerja Kemnaker',
-      tech: ['Vue.js', 'Laravel Lumen', 'PostgreSQL'],
-      description: 'Comprehensive dashboard for monitoring and managing workforce training programs by Kemnaker.',
-      status: 'Active',
-      link: 'https://matapvp.kemnaker.go.id/'
-    },
-    {
-      name: 'Dashboard Tenaga Kerja Kemnaker',
-      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
-      description: 'Analytics and monitoring dashboard providing insights into labor market and workforce distribution.',
-      status: 'Active',
-      link: 'https://matatk.kemnaker.go.id/'
-    },
-    {
-      name: 'Dashboard Pemadanan Data Kemnaker',
-      tech: ['Vue.js', 'Python', 'FastAPI', 'PostgreSQL'],
-      description: 'Data reconciliation platform ensuring accuracy and consistency across multiple labor-related datasets.',
-      status: 'Active',
-      link: 'https://pemadanandata.kemnaker.go.id/'
-    },
-    {
-      name: 'Sistem Informasi Kearsipan Statis (SIKS) ANRI',
-      tech: ['Vue.js', 'Rancher', 'Keycloak', 'Minio', 'PostgreSQL'],
-      description: 'National archival information system supporting static archive management and secure access.',
-      status: 'Active',
-      link: 'https://siks.arsip.go.id/'
+      description: 'Recruitment and hiring platform streamlining Indosat’s talent acquisition pipeline — Laravel + MySQL.',
+      status: 'Completed',
+      type: 'Enterprise System'
     },
     {
       name: 'Sistem Informasi Keuangan (SIMKEU) Komdigi',
       tech: ['Laravel', 'MySQL'],
-      description: 'Financial management system for Komdigi, handling budgeting, transactions, and reporting.',
+      description: 'Financial management system handling budgeting, transactions, and reporting for Komdigi — Laravel + MySQL.',
       status: 'Active',
+      type: 'Enterprise System · Government',
       link: 'https://simkeu-e-penyiaran.komdigi.go.id/'
-    },
-    {
-      name: 'Dashboard Ekonomi Kreatif Jawa Barat',
-      tech: ['React', 'Node.js', 'Supabase'],
-      description: 'Interactive dashboard visualizing the creative economy sector performance in West Java.',
-      status: 'Staging',
-      link: 'http://194.233.75.135:3000/'
     }
   ];
 
@@ -243,12 +306,25 @@ function App() {
       <main className="relative z-30 max-w-6xl mx-auto p-6">
         {currentZone === 'home' && (
           <div className="text-center py-20 animate-fade-in">
+            <div className="inline-block mb-6 px-4 py-2 bg-cyan-500/10 border border-cyan-500/40 rounded-full text-sm font-mono text-cyan-300 tracking-wider">
+              FULL-STACK ENGINEER · NODE.JS · REACT · TYPESCRIPT
+            </div>
             <h2 className="text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               WELCOME TO THE GRID
             </h2>
-            <p className="text-xl mb-12 text-cyan-300 font-mono">
-              Navigate through the digital zones to explore my professional profile
+            <p className="text-xl mb-6 text-cyan-300 font-mono">
+              4+ years shipping scalable, production-grade web platforms end to end
             </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-12">
+              {['REST APIs', 'PostgreSQL / MySQL', 'Docker & Kubernetes', 'S3-Compatible Storage', 'Real-Time Dashboards', 'Performance Optimization'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-slate-800/60 border border-purple-500/30 rounded-full text-xs font-mono text-purple-300 hover:bg-purple-500/20 hover:border-purple-400/50 transition-colors"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
               {zones.map((zone, index) => (
@@ -314,7 +390,7 @@ function App() {
                     </div>
                     <div className="flex items-center gap-2 p-2 hover:bg-cyan-500/10 rounded transition-colors">
                       <span className="text-cyan-400 w-24">ROLE:</span> 
-                      <span className="text-cyan-100">Full Stack Developer</span>
+                      <span className="text-cyan-100">Full-Stack Engineer (Node.js · React · TypeScript)</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 hover:bg-cyan-500/10 rounded transition-colors">
                       <span className="text-cyan-400 w-24">LEVEL:</span> 
@@ -322,7 +398,7 @@ function App() {
                     </div>
                     <div className="flex items-center gap-2 p-2 hover:bg-cyan-500/10 rounded transition-colors">
                       <span className="text-cyan-400 w-24">XP:</span> 
-                      <span className="text-purple-400">3+ Years</span>
+                      <span className="text-purple-400">4+ Years</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 hover:bg-cyan-500/10 rounded transition-colors">
                       <span className="text-cyan-400 w-24">STATUS:</span> 
@@ -340,22 +416,25 @@ function App() {
                   </h3>
                   <div className="bg-slate-800/30 p-4 rounded-lg border border-purple-500/20">
                     <p className="text-cyan-100 leading-relaxed mb-4">
-                      Dedicated developer with strong experience in building scalable web applications using 
-                      modern frameworks like Vue.js, Laravel, and FastAPI. Skilled in architecting solutions 
-                      with Kubernetes, API integrations, and data visualization, while maintaining focus on 
-                      clean code and user experience.
+                      Full-stack software engineer with 4+ years of experience designing, shipping, and
+                      operating production web platforms end to end — React and Vue.js frontends, REST
+                      APIs in Node.js, FastAPI, and Laravel Lumen, backed by PostgreSQL and MySQL data
+                      layers. Currently building national-scale systems for Indonesian government
+                      institutions (Kemnaker, ANRI, Komdigi) and enterprise clients such as Indosat.
                     </p>
                     <p className="text-cyan-100 leading-relaxed mb-4">
-                      Passionate about continuous learning — from experimenting with AI, bots, and 
-                      speech-to-text systems, to exploring emerging tech like FPV drones and IoT. 
+                      Focused on performance and reliability at scale: 40% measured application
+                      performance gains, real-time data dashboards, data reconciliation pipelines,
+                      containerized deployments on Rancher-managed Kubernetes, MinIO S3-compatible
+                      object storage, Keycloak SSO, and CI/CD automation on every release.
                     </p>
                     <p className="text-cyan-100 leading-relaxed">
-                      Beyond coding, I value collaboration, creativity, and meaningful connections. 
-                      I believe technology should not only solve problems but also create positive 
-                      impact and inspiring experiences.
+                      Beyond the stack, I stay curious — experimenting with AI, bots, speech-to-text,
+                      IoT, and FPV drones — and I believe strong engineering comes from ownership, clear
+                      communication, and products that create measurable impact.
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {['Innovation', 'Problem Solving', 'Team Leadership', 'Continuous Learning'].map((trait) => (
+                      {['Full-Stack Ownership', 'Performance Optimization', 'Scalable Systems', 'API Design', 'Team Leadership', 'Continuous Learning'].map((trait) => (
                         <span
                           key={trait}
                           className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-xs font-mono text-purple-300 hover:bg-purple-500/30 transition-colors"
@@ -371,10 +450,10 @@ function App() {
               {/* Bio Stats */}
               <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Projects Completed', value: '10+', color: 'text-green-400' },
-                  { label: 'Lines of Code', value: '100K+', color: 'text-cyan-400' },
-                  { label: 'Coffee Consumed', value: '∞', color: 'text-yellow-400' },
-                  { label: 'Bugs Fixed', value: '999+', color: 'text-purple-400' }
+                  { label: 'Years Experience', value: '4+', color: 'text-green-400' },
+                  { label: 'Production Systems', value: '10+', color: 'text-cyan-400' },
+                  { label: 'Gov & Enterprise Clients', value: '5+', color: 'text-yellow-400' },
+                  { label: 'Lines of Code', value: '100K+', color: 'text-purple-400' }
                 ].map((stat, index) => (
                   <div
                     key={stat.label}
@@ -408,10 +487,16 @@ function App() {
                 SKILLS_MATRIX.exe
               </h2>
               
+              <p className="text-cyan-100 leading-relaxed mb-6">
+                Production-oriented full-stack toolkit refined across 4+ years of shipping and
+                operating real systems — from TypeScript/React frontends and Node.js REST APIs to
+                PostgreSQL/MySQL data layers and containerized infrastructure.
+              </p>
+
               {/* Skill Categories */}
-              <div className="mb-8">
+              <div className="mb-6">
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {['Frontend', 'Backend', 'Database', 'Cloud', 'DevOps'].map((category) => (
+                  {['Frontend', 'Backend', 'Database', 'DevOps'].map((category) => (
                     <span
                       key={category}
                       className="px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-full text-sm font-mono text-green-300 hover:bg-green-500/30 transition-colors cursor-pointer"
@@ -422,28 +507,28 @@ function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <p className="text-cyan-100 leading-relaxed">
-                  Passionate developer focused on creating innovative digital solutions. 
-                  Specializing in modern web technologies and user experience optimization. 
-                  Always eager to tackle new challenges and learn emerging technologies.
-                </p>
+              {/* Core Stack Keywords */}
+              <div>
+                <div className="text-xs font-mono text-green-400/80 mb-3">CORE_STACK //</div>
+                <div className="flex flex-wrap gap-2">
+                  {coreStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-slate-800/60 border border-cyan-500/30 rounded-full text-xs font-mono text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-            <button
-              onClick={() => setCurrentZone('home')}
-              className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
-            >
-              RETURN TO GRID
-            </button>
-          </div>
-        )}
 
-        {currentZone === 'skills' && (
-          <div className="py-12 animate-fade-in">
-            <div className="bg-gradient-to-br from-slate-800/50 to-green-900/30 border border-green-500/30 rounded-lg p-8 mb-8">
-              <h2 className="text-4xl font-bold mb-6 text-green-400 font-mono">SKILLS_MATRIX.exe</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-br from-slate-800/50 to-green-900/30 border border-green-500/30 rounded-lg p-8">
+              <h3 className="text-2xl font-bold mb-6 text-green-300 font-mono flex items-center gap-2">
+                <Zap size={20} className="animate-pulse" />
+                PROFICIENCY_LEVELS
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {skills.map((skill, index) => (
                   <div
                     key={skill.name}
@@ -510,6 +595,18 @@ function App() {
                       <span className="text-orange-400 font-mono text-sm bg-orange-500/20 px-3 py-1 rounded-full">{exp.period}</span>
                     </div>
                     <p className="text-orange-200 mb-4 font-semibold text-lg">{exp.company}</p>
+                    {exp.stack && exp.stack.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {exp.stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-xs font-mono text-cyan-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="space-y-2">
                       {exp.achievements.map((achievement, i) => (
                         <div key={i} className="flex items-center gap-3 p-2 hover:bg-orange-500/10 rounded transition-colors">
@@ -545,10 +642,15 @@ function App() {
                     className="bg-slate-800/40 border border-pink-500/30 rounded-lg p-6 hover:border-pink-400/60 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/20 group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-2 mb-2">
                       <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse" />
                       <h3 className="text-lg font-bold text-pink-300 group-hover:text-pink-200 transition-colors">{project.name}</h3>
                     </div>
+                    {project.type && (
+                      <span className="inline-block mb-2 px-2.5 py-1 bg-purple-500/10 border border-purple-500/30 rounded text-xs font-mono text-purple-300">
+                        {project.type}
+                      </span>
+                    )}
                     <p className="text-cyan-100 text-sm mb-4 leading-relaxed">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech) => (
